@@ -55,7 +55,7 @@ const UnsplashSettings: React.FC<Props> = ({ data = defaultData, setData }) => (
         checked={data.by === "topics"}
         onChange={() => setData({ ...data, by: "topics" })}
       />{" "}
-      Topic
+      Topics
     </label>
 
     <label>
@@ -78,10 +78,18 @@ const UnsplashSettings: React.FC<Props> = ({ data = defaultData, setData }) => (
 
     {data.by === "topics" && (
       <label>
-        Topic
+        Topics
         <select
+          multiple
           value={data.topics}
-          onChange={(event) => setData({ ...data, topics: event.target.value })}
+          onChange={(event) =>
+            setData({
+              ...data,
+              topics: Array.prototype.filter
+                .call(event.target.options, (option) => option.selected)
+                .map((option) => option.value),
+            })
+          }
         >
           {topics.map((topic) => (
             <option key={topic.id} value={topic.id}>
@@ -89,6 +97,7 @@ const UnsplashSettings: React.FC<Props> = ({ data = defaultData, setData }) => (
             </option>
           ))}
         </select>
+        <i>Select one or more topics</i>
       </label>
     )}
 
