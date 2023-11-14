@@ -97,7 +97,8 @@ const UnsplashSettings: React.FC<Props> = ({ data = defaultData, setData }) => (
             </option>
           ))}
         </select>
-        <i>Select one or more topics</i>
+        Tip: To select multiple topics, hold down{" "}
+        {getOS() == "macos" ? "Command (⌘)" : "Control (CTRL)"} and click the topics.
       </label>
     )}
 
@@ -139,5 +140,27 @@ const UnsplashSettings: React.FC<Props> = ({ data = defaultData, setData }) => (
     )}
   </div>
 );
+
+function getOS() {
+  let userAgent = window.navigator.userAgent.toLowerCase(),
+    macosPlatforms = /(macintosh|macintel|macppc|mac68k|macos)/i,
+    windowsPlatforms = /(win32|win64|windows|wince)/i,
+    iosPlatforms = /(iphone|ipad|ipod)/i,
+    os = null;
+
+  if (macosPlatforms.test(userAgent)) {
+    os = "macos";
+  } else if (iosPlatforms.test(userAgent)) {
+    os = "ios";
+  } else if (windowsPlatforms.test(userAgent)) {
+    os = "windows";
+  } else if (/android/.test(userAgent)) {
+    os = "android";
+  } else if (!os && /linux/.test(userAgent)) {
+    os = "linux";
+  }
+
+  return os;
+}
 
 export default UnsplashSettings;
