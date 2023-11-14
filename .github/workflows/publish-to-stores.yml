@@ -38,7 +38,8 @@ jobs:
           name: tab-nine-chromium
       - run: zip release.zip ./* -r
       - run: npm install -g chrome-webstore-upload-cli
-      - run: chrome-webstore-upload upload --source release.zip --extension-id ${{ secrets.CHROME_EXTENSION_ID }} --client-id ${{ secrets.CI_GOOGLE_CLIENT_ID }} --client-secret ${{ secrets.CI_GOOGLE_CLIENT_SECRET }} --refresh-token ${{ secrets.CI_GOOGLE_REFRESH_TOKEN }} --auto-publish
+      - run: chrome-webstore-upload upload --source release.zip --extension-id ${{ secrets.CHROME_EXTENSION_ID }} --client-id ${{ secrets.CI_GOOGLE_CLIENT_ID }} --client-secret ${{ secrets.CI_GOOGLE_CLIENT_SECRET }} --refresh-token ${{ secrets.CI_GOOGLE_REFRESH_TOKEN }}
+      - run: chrome-webstore-upload publish --extension-id ${{ secrets.CHROME_EXTENSION_ID }} --client-id ${{ secrets.CI_GOOGLE_CLIENT_ID }} --client-secret ${{ secrets.CI_GOOGLE_CLIENT_SECRET }} --refresh-token ${{ secrets.CI_GOOGLE_REFRESH_TOKEN }}
   upload-firefox-store:
     needs: [build]
     name: Upload extension to Firefox Store
