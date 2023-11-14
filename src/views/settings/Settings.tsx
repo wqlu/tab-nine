@@ -130,7 +130,7 @@ const Settings: React.FC = () => {
           tagName="p"
         />
         <p style={{ textAlign: "center" }}>
-          Tab Nine <code>v1.2.0</code>
+          Tab Nine <code>v1.3.0</code>
         </p>
       </div>
     </div>
