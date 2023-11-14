@@ -1,5 +1,5 @@
-name: Push
-on: push
+name: Build and test on Pull Request
+on: pull_request
 
 jobs:
   test:
