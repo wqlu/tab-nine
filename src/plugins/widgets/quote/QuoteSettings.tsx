@@ -29,7 +29,7 @@ const QuoteSettings: React.FC<Props> = ({ data = defaultData, setData }) => (
         checked={data.category === "random"}
         onChange={() => setData({ category: "random" })}
       />{" "}
-      Quotes
+      Random
     </label>
     <p>
       Powered by{" "}
