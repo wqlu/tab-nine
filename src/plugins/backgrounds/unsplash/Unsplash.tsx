@@ -127,7 +127,7 @@ const Unsplash: React.FC<Props> = ({
     }
   }, [cache]);
 
-  const url = item ? buildLink(item.src) : null;
+  const url = item?.src.length ? buildLink(item.src) : null;
 
   const go = (amount: number) =>
     cache && cache.items[cache.cursor + amount]
