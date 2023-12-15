@@ -211,6 +211,12 @@ type RotatingCache<Item> = {
   deps: unknown[];
 };
 
+function arrayEquals(a: any[], b: any[]): boolean {
+  return (
+    a.length === b.length && a.every((element, index) => element === b[index])
+  );
+}
+
 /**
  * Implementation adapted from react's hook source.
  * Too bad they do not export it.
@@ -218,6 +224,15 @@ type RotatingCache<Item> = {
 function areDepsEqual(prevDeps: unknown[], nextDeps: unknown[]) {
   for (let i = 0; i < prevDeps.length && i < nextDeps.length; i++) {
     if (Object.is(nextDeps[i], prevDeps[i])) {
+      continue;
+    }
+    // if nextdeps and prevdeps are arrays, compare them via separate func
+    // because Object.is doesn't work for arrays
+    else if (
+      Array.isArray(nextDeps[i]) &&
+      Array.isArray(prevDeps[i]) &&
+      arrayEquals(nextDeps[i] as any[], prevDeps[i] as any[])
+    ) {
       continue;
     }
     return false;
