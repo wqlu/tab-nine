@@ -9,7 +9,7 @@ async function getDeveloperExcuse(): Promise<{quote: string, author: string | un
 
     return {
       quote: body.data,
-      author: "Normal Developer"
+      author: undefined
     };
   } catch (err) {
     return {
