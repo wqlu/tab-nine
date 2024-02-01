@@ -2,17 +2,37 @@ import { API } from "../../types";
 import { Quote } from "./types";
 
 // Get developer excuse
-async function getDeveloperExcuse() {
+async function getDeveloperExcuse(): Promise<{quote: string, author: string | undefined}> {
   try {
     const res = await fetch("https://api.tabliss.io/v1/developer-excuses");
     const body = await res.json();
 
     return {
       quote: body.data,
+      author: undefined
     };
   } catch (err) {
     return {
       quote: "Unable to get a new developer excuse.",
+      author: undefined
+    };
+  }
+}
+
+async function getRandomQuote(): Promise<{quote: string, author: string | undefined}> {
+  try {
+    const res = await fetch("https://api.quotable.io/quotes/random?limit=1");
+    const body = await res.json();
+    const quote = body[0];
+
+    return {
+      quote: quote.content,
+      author: quote.author
+    };
+  } catch (err) {
+    return {
+      quote: "Unable to get random quote.",
+      author: undefined
     };
   }
 }
@@ -21,17 +41,23 @@ export async function getQuote(
   loader: API["loader"],
   category: string,
 ): Promise<Quote> {
+  
   loader.push();
 
-  const data = await getDeveloperExcuse();
+  const data =
+    category === "developerexcuses"
+    ? await getDeveloperExcuse()
+    : await getRandomQuote();
 
   loader.pop();
 
   const quote = cleanQuote(data.quote);
+  const author = data.author;
 
   return {
     ...data,
     quote,
+    author,
     timestamp: Date.now(),
   };
 }
