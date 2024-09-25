@@ -5,13 +5,13 @@
   "private": true,
   "scripts": {
     "build": "npm run build:web",
-    "build:chromium": "NODE_ENV=production BUILD_TARGET=chromium webpack",
-    "build:firefox": "NODE_ENV=production BUILD_TARGET=firefox webpack",
-    "build:web": "NODE_ENV=production BUILD_TARGET=web webpack",
+    "build:chromium": "cross-env NODE_ENV=production BUILD_TARGET=chromium webpack",
+    "build:firefox": "cross-env NODE_ENV=production BUILD_TARGET=firefox webpack",
+    "build:web": "cross-env NODE_ENV=production BUILD_TARGET=web webpack",
     "dev": "npm run dev:web",
-    "dev:chromium": "BUILD_TARGET=chromium webpack --watch",
-    "dev:firefox": "BUILD_TARGET=firefox webpack --watch",
-    "dev:web": "BUILD_TARGET=web webpack serve",
+    "dev:chromium": "cross-env BUILD_TARGET=chromium webpack --watch",
+    "dev:firefox": "cross-env BUILD_TARGET=firefox webpack --watch",
+    "dev:web": "cross-env BUILD_TARGET=web webpack serve",
     "test": "tsc -p tsconfig.test.json && jest",
     "translations": "node ./scripts/translations.js"
   },
@@ -30,7 +30,8 @@
     "react-github-btn": "^1.4.0",
     "react-intl": "^6.5.5",
     "tlds": "^1.249.0",
-    "webextension-polyfill": "^0.10.0"
+    "webextension-polyfill": "^0.10.0",
+    "cross-env": "^7.0.3"
   },
   "devDependencies": {
     "@types/jest": "^29.5.11",
